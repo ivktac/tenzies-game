@@ -3,9 +3,13 @@ export default function Die(props) {
     backgroundColor: props.isHeld ? "#59e391" : "#fff",
   };
 
+  const diePips = Array.from({ length: props.value }).map((_, index) => (
+    <span key={index} className="die__pip" />
+  ));
+
   return (
     <div className="die__face" style={styles} onClick={props.holdDice}>
-      <h2 className="die__num">{props.value}</h2>
+      {diePips}
     </div>
   );
 }
