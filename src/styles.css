@@ -27,7 +27,7 @@ main {
     gap: 20px;
 }
 
-.die__face {
+.dice__face {
     height: 50px;
     width: 50px;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
@@ -39,7 +39,7 @@ main {
     background-color: #fff;
 }
 
-.die__num {
+.dice__num {
     font-size: 2rem;
 }
 

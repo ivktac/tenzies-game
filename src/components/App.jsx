@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Die from "./Die";
+import Dice from "./Dice";
 
 export default function App() {
   const [dice, setDice] = useState(allNewDice());
@@ -16,13 +16,13 @@ export default function App() {
     setDice(allNewDice());
   }
 
+  const diceElements = dice.map((die, index) => (
+    <Dice key={index} value={die} />
+  ));
+
   return (
     <main>
-      <div className="dice__container">
-        {allNewDice().map((die, index) => (
-          <Die key={index} value={die} />
-        ))}
-      </div>
+      <div className="dice__container">{diceElements}</div>
       <button onClick={rollDice} className="roll__dice">
         Roll Dice
       </button>
