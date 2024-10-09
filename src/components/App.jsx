@@ -22,7 +22,7 @@ export default function App() {
   }
 
   const diceElements = dice.map((die) => (
-    <Dice key={die.id} value={die.value} />
+    <Dice key={die.id} value={die.value} isHeld={die.isHeld} />
   ));
 
   return (
