@@ -6,7 +6,15 @@ export default function App() {
   const [dice, setDice] = useState(allNewDice());
   const [tenzies, setTenzies] = useState(false);
 
-  useEffect(() => {}, [dice]);
+  useEffect(() => {
+    const allHeld = dice.every((die) => die.isHeld);
+    const firstDieValue = dice[0].value;
+    const allSameValue = dice.every((die) => die.value === firstDieValue);
+    if (allHeld && allSameValue) {
+      setTenzies(true);
+      console.log("Tenzies!");
+    }
+  }, [dice]);
 
   function allNewDice() {
     const newDice = [];
