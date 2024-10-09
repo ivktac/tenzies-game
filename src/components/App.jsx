@@ -8,7 +8,8 @@ export default function App() {
   const [tenzies, setTenzies] = useState(false);
   const [rolls, setRolls] = useState(0);
   const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
+  const [timeToWin, setTimeToWin] = useState(null);
+  const [bestTime, setBestTime] = useState(localStorage.getItem("bestTime"));
 
   useEffect(() => {
     const allHeld = dice.every((die) => die.isHeld);
@@ -16,7 +17,12 @@ export default function App() {
     const allSameValue = dice.every((die) => die.value === firstDieValue);
     if (allHeld && allSameValue) {
       setTenzies(true);
-      setEndTime(Date.now());
+      const timeToWin = (Date.now() - startTime) / 1000;
+      setTimeToWin(timeToWin);
+      if (!bestTime || timeToWin < bestTime) {
+        setBestTime(timeToWin);
+        localStorage.setItem("bestTime", timeToWin);
+      }
     }
   }, [dice]);
 
@@ -53,7 +59,7 @@ export default function App() {
     setDice(allNewDice());
     setRolls(0);
     setStartTime(null);
-    setEndTime(null);
+    setTimeToWin(null);
   }
 
   function holdDice(id) {
@@ -74,8 +80,6 @@ export default function App() {
     />
   ));
 
-  const timeToWin = endTime && startTime ? (endTime - startTime) / 1000 : null;
-
   return (
     <main>
       {tenzies && <Confetti />}
@@ -84,8 +88,11 @@ export default function App() {
         Roll until all dice are the same. Click each die to freeze it at its
         current value between rolls.
       </p>
-      <p>Number of rolls: {rolls}</p>
-      {timeToWin && <p>Time to win: {timeToWin.toFixed(0)} seconds</p>}
+      <div className="dice__score">
+        <p>Number of rolls: {rolls}</p>
+        {timeToWin && <p>Time: {timeToWin} seconds</p>}
+        {bestTime && <p>Best time: {bestTime} seconds</p>}
+      </div>
       <div className="dice__container">{diceElements}</div>
       <button onClick={rollDice} className="roll__dice">
         {tenzies ? "New Game" : "Roll"}
