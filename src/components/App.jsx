@@ -89,9 +89,9 @@ export default function App() {
         current value between rolls.
       </p>
       <div className="dice__score">
-        <p>Number of rolls: {rolls}</p>
+        {rolls !== 0 && <p>Number of rolls: {rolls}</p>}
         {timeToWin && <p>Time: {timeToWin} seconds</p>}
-        {bestTime && <p>Best time: {bestTime} seconds</p>}
+        {timeToWin && <p>Best time: {bestTime} seconds</p>}
       </div>
       <div className="dice__container">{diceElements}</div>
       <button onClick={rollDice} className="roll__dice">
